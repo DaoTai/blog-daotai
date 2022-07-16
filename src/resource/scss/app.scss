@@ -6,3 +6,12 @@ h1 {
 h2 {
     color: orange;
 }
+
+.card{
+    min-height: 100%;
+}
+
+.card-item{
+    height: $height-image;
+    object-fit: cover;
+}
