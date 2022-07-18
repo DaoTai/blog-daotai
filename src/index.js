@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const handlebars = require('express-handlebars');
+const methodOverride = require('method-override')
 const app = express();
 const port = 3000;
 
@@ -21,6 +22,9 @@ app.use(
 ); //xử lý dữ liệu được submit khi sử dụng thẻ <form></form>
 app.use(express.json()); //xử lý dữ liệu khi sử dụng JS để submit
 
+// 
+app.use(methodOverride('_method'))
+
 // HTTP logger
 // app.use(morgan('combined'))
 
@@ -29,7 +33,11 @@ app.engine(
     'hbs',
     handlebars.engine({
         extname: '.hbs',
+        helpers: {
+            sum: (a, b) => a + b
+        }
     }),
+    
 );
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, '/resource/views'));
