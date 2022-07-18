@@ -1,7 +1,6 @@
 @import 'variables';
 h1 {
     color: $red-color;
-    font-size: 1.6rem;
 }
 h2 {
     color: orange;
@@ -9,9 +8,19 @@ h2 {
 
 .card{
     min-height: 100%;
+    transition: all ease 0.5s;
+    &:hover{
+        opacity: 0.9;
+        transform: translateY(-10px);
+    }
 }
 
 .card-item{
     height: $height-image;
     object-fit: cover;
 }
+
+.course__desc{
+    padding-bottom: 20px;
+}
+

@@ -1,6 +1,5 @@
 h1 {
   color: red;
-  font-size: 1.6rem;
 }
 
 h2 {
@@ -9,11 +8,20 @@ h2 {
 
 .card {
   min-height: 100%;
+  transition: all ease 0.5s;
+}
+.card:hover {
+  opacity: 0.9;
+  transform: translateY(-10px);
 }
 
 .card-item {
   height: 285px;
   object-fit: cover;
+}
+
+.course__desc {
+  padding-bottom: 20px;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
+
+const slug = require('mongoose-slug-generator');
+mongoose.plugin(slug);
 // Schema: lược đồ
 const Schema = mongoose.Schema;
 
 const Course = new Schema({
-    name: { type: String, default: '', maxLength: 255 },
-    description: { type: String, min: 10 },
+    name: { type: String, default: '', required: true },
+    description: { type: String},
     image: { type: String },
-    createdAt: { type: Date, default: Date.now },
-    updateAt: { type: Date, default: Date.now },
-});
+    slug: { type: String, slug: "name", unique: true },
+    videoId: { type: String },
+},{timestamps: true});
+
 module.exports = mongoose.model('Course', Course);
