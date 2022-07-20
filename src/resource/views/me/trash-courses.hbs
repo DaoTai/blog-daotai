@@ -1,6 +1,6 @@
 <div class="mt-4">
-    <h2 class="text-center">Khóa học của tôi</h2>
-    <p><a href="/me/trash/courses">Thùng rác</a></p>
+    <h2 class="text-center">Danh sách khóa học đã xóa</h2>
+    <p><a href="/me/stored/courses">Quay lại</a></p>
     <div class="mt-4">
         <table class="table ">
             <thead class="bg-dark text-light">
@@ -19,14 +19,14 @@
                     <td>{{this.description}}</td>
                     <td>{{this.updatedAt}}</td>
                     <td>
-                        <a href="/course/{{this._id}}/edit">Sửa</a>
+                        <a class="btn-restore" href="" data-id="{{this._id}}">Khôi phục</a>
                     </td>
                     <td>
-                        <a href="" data-toggle="modal" data-target="#deleteModal" data-id="{{this._id}}">Xóa</a>
+                        <a href="" data-toggle="modal" data-target="#deleteModal" data-id="{{this._id}}">Xóa vĩnh viễn</a>
                     </td>
                 </tr>
                   {{else}}
-                    <td class="text-center" colspan="6">Bạn chưa đăng khóa học nào!! <a href="/course/create">Tạo khóa mới ngay</a></td>
+                    <td class="text-center" colspan="6">Thùng rác trống <a href="/course/create">Tạo khóa mới ngay</a></td>
                 {{/each}}
             </tbody>
         </table> 
@@ -34,6 +34,7 @@
 </div>
 
 <form id="form-delete" method="POST"></form>
+<form id="form-restore" method="POST"></form>
 
 <!-- Modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -46,10 +47,10 @@
         </button>
       </div>
       <div class="modal-body">
-        Bạn có muốn xóa khóa học này?
+        Bạn muốn xóa vĩnh viễn khóa học này? Hãy chắc chắn rằng không thể khôi phục lại 
       </div>
       <div class="modal-footer">
-        <button id="btn-delete" type="button" class="btn btn-danger">Xóa bỏ</button>
+        <button id="btn-delete" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
       </div>
     </div>
@@ -60,18 +61,28 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         let idCourse;
+        const deleteBtn = document.getElementById('btn-delete')
+        const formDelete = document.forms['form-delete']
+        const formRestore = document.forms['form-restore']
+        const btnRestore = $('.btn-restore')
         //Click dialog delete
         $('#deleteModal').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Button that triggered the modal
             idCourse = button.data('id') 
         })
+
+        //Handle restore course
+        btnRestore.click((e) => {
+          e.preventDefault();
+          const courseId = e.target.dataset.id;
+          formRestore.action = `/course/${courseId}/restore?_method=PATCH`
+          formRestore.submit()
+        })
         
-        const deleteBtn = document.getElementById('btn-delete')
-        const formDelete = document.forms['form-delete']
-        // Handle delete course
+        // Handle force delete course
         deleteBtn.onclick = () => {
-            formDelete.action = `/course/${idCourse}/?_method=DELETE`
-            formDelete.submit()
+          formDelete.action = `/course/${idCourse}/force-delete?_method=DELETE`
+          formDelete.submit()
         }
     })
 
