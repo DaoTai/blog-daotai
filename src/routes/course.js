@@ -10,6 +10,7 @@ router.put('/:id', courseController.update);
 router.patch('/:id/restore', courseController.restore);
 router.delete('/:id', courseController.delete);
 router.delete('/:id/force-delete', courseController.forceDelete);
+router.post('/handle-all', courseController.handleAll);
 router.get('/:slug', courseController.show);
 
 module.exports = router;
