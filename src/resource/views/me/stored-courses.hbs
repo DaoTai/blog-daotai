@@ -21,9 +21,16 @@
                 <tr>
                   <th>#</th>
                   <th scope="col">STT</th>
-                  <th scope="col">Tên khóa học</th>
+                  <th>ID
+                    {{{sortable '_id' _sort}}}
+                  </th>
+                  <th scope="col">Tên khóa học
+                    {{{sortable 'name' _sort}}}
+                  </th>
                   <th scope="col">Mô tả</th>
-                  <th scope="col" colspan="3">Thời gian cập nhật</th>
+                  <th scope="col" colspan="3">Thời gian cập nhật
+                    {{{sortable 'updatedAt' _sort}}}
+                  </th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +40,7 @@
                         <input class="checkbox-course-item" name="courseIds[]" value="{{this._id}}" type="checkbox" >
                     </td>
                     <th scope="row">{{sum @index 1}}</th>
+                    <td>{{this._id}}</td>
                     <td>{{this.name}}</td>
                     <td>{{this.description}}</td>
                     <td>{{this.updatedAt}}</td>
